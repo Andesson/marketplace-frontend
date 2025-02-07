@@ -1,0 +1,22 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .home-content {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .home-content h1 {
+    font-size: 36px;
+    color: #201192;
+  }
+  
+  .home-content p {
+    font-size: 18px;
+    color: #3d27ab;
+  }
