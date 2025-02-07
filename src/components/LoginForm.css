@@ -1,0 +1,125 @@
+/* Estilos gerais */
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #201192, #3d27ab);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: center;
+}
+
+.login-form h2 {
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #593ec5;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #7654de;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.google-login {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.google-login button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #201192;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.google-login button:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.google-login button:active {
+  transform: translateY(0);
+}
+
+/* Estilos para o botão do Google */
+#google-signin-button {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Ajustes para o botão do Google */
+.g_id_signin {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.error {
+  color: #ff6b6b;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #120d36, #593ec5);
+  font-family: 'Arial', sans-serif;
+}
