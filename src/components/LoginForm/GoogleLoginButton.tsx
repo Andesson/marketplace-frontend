@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import './LoginForm.css';
 
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
 const VITE_GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID as string;
 
 const GoogleLoginButton: React.FC = () => {
   const googleButtonRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://accounts.google.com/gsi/client';
@@ -40,22 +40,24 @@ const GoogleLoginButton: React.FC = () => {
 
   const handleGoogleLogin = async (credential: string) => {
     console.log('Token do Google:', credential);
-  
+
     try {
-      const response = await fetch(VITE_BACKEND_URL, {
+      const response = await fetch(`${VITE_BACKEND_URL}/auth/google`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ token: credential }),
       });
-  
+
       const data = await response.json();
-  
+
       if (data.jwt) {
         // Salva o token no localStorage ou cookies para autenticação futura
         localStorage.setItem('jwt', data.jwt);
         console.log('Login bem-sucedido!', data);
+        // Redireciona o usuário para a página inicial ou dashboard
+        window.location.href = '/';
       } else {
         console.error('Erro ao autenticar com Google:', data.error);
       }
@@ -63,7 +65,6 @@ const GoogleLoginButton: React.FC = () => {
       console.error('Erro ao enviar token para backend:', error);
     }
   };
-  
 
   return (
     <div>

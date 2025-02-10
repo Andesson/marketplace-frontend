@@ -1,36 +1,16 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import SignupForm from '../components/SignupForm';
-import './Signup.css';
-
-const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
+import Navbar from '../components/Navbar/Navbar';
+import SignupForm from '../components/SignupForm/SignupForm';
 
 const Signup: React.FC = () => {
-  const handleSignup = async (name: string, email: string, password: string) => {
-    try {
-      const response = await fetch(VITE_BACKEND_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Erro ao cadastrar usuário');
-      }
-
-      const data = await response.json();
-      console.log('Cadastro realizado com sucesso:', data);
-    } catch (error) {
-      console.error('Erro no cadastro:', error);
-    }
+  const handleSignup = (name: string, email: string, password: string) => {
+    console.log('Cadastro realizado:', { name, email, password });
   };
 
   return (
-    <div className="signup">
+    <div className="min-h-screen bg-[#242424] text-white flex flex-col items-center justify-center pt-32">
       <Navbar />
-      <div className="signup-content">
+      <div className="w-full max-w-md p-6">
         <SignupForm onSignup={handleSignup} />
       </div>
     </div>
