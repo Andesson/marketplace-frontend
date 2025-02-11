@@ -1,48 +1,34 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signup } from '../../services/signupService';
 
-interface SignupFormProps {
-  onSignup: (name: string, email: string, password: string) => void;
-}
-
-const SignupForm: React.FC<SignupFormProps> = ({ onSignup }) => {
+const SignupForm: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!name || !email || !password) {
-      setError('Por favor, preencha todos os campos.');
+      setError('Please fill in all fields.');
       return;
     }
-
     setError('');
     setIsLoading(true);
-
     try {
-      const urlBackend = import.meta.env.VITE_BACKEND_URL as string;
-      const response = await fetch(urlBackend+"/auth-service/v1/auth/signup", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        onSignup(name, email, password);
-        console.log('Cadastro realizado com sucesso:', data);
-      } else {
-        setError(data.message || 'Erro ao cadastrar.');
-      }
+      await signup({ name, email, password });
+      navigate('/login', { state: { successMessage: 'Registration successful! Please log in.' } });
+      console.log('Registration successful!');
     } catch (error) {
-      console.error('Erro ao enviar dados para o backend:', error);
-      setError('Erro ao conectar com o servidor.');
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('Ocorreu um erro inesperado. Por favor, tente novamente mais tarde.');
+      }
+      console.error('Erro no cadastro:', error);
     } finally {
       setIsLoading(false);
     }

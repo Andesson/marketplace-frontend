@@ -5,7 +5,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="fixed top-0 left-0 w-full bg-[#201192] text-white p-5 z-1000">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <div className="text-2xl font-bold mb-4 md:mb-0">Meu Site</div>
+        <div className="text-2xl font-bold mb-4 md:mb-0">GoTrade</div>
         <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
           <Link
             to="/login"

@@ -1,25 +1,43 @@
 import React, { useState } from 'react';
 import GoogleLoginButton from './GoogleLoginButton';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../services/loginService';
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
+const LoginForm: React.FC<LoginFormProps> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !password) {
-      setError('Por favor, preencha todos os campos.');
+      setError('Please fill in all fields.');
       return;
     }
 
     setError('');
-    onLogin(email, password);
+    setIsLoading(true);
+
+    try {
+      await login({ email, password });
+      navigate('/protected');
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('Error during login. Please try again later.');
+      }
+      console.error('Erro no login:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -41,7 +59,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </div>
         <div className="mb-6">
           <label htmlFor="password" className="block mb-2">
-            Senha:
+            Password:
           </label>
           <input
             type="password"
@@ -53,9 +71,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </div>
         <button
           type="submit"
-          className="w-full bg-[#593ec5] text-white py-2 rounded hover:bg-[#7654de] transition-colors"
+          className="w-full bg-[#593ec5] text-white py-2 rounded hover:bg-[#7654de] transition-colors flex justify-center items-center"
+          disabled={isLoading}
         >
-          Entrar
+          {isLoading ? (
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+          ) : (
+            'Login'
+          )}
         </button>
       </form>
       <div className="mt-6">
