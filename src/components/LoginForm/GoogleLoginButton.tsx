@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
 const VITE_GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID as string;
 
 const GoogleLoginButton: React.FC = () => {
   const googleButtonRef = useRef<HTMLDivElement | null>(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://accounts.google.com/gsi/client';
@@ -53,11 +54,9 @@ const GoogleLoginButton: React.FC = () => {
       const data = await response.json();
 
       if (data.jwt) {
-        // Salva o token no localStorage ou cookies para autenticação futura
         localStorage.setItem('jwt', data.jwt);
         console.log('Login bem-sucedido!', data);
-        // Redireciona o usuário para a página inicial ou dashboard
-        window.location.href = '/';
+        navigate('/dashboard');
       } else {
         console.error('Erro ao autenticar com Google:', data.error);
       }

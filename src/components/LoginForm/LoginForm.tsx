@@ -27,7 +27,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
 
     try {
       await login({ email, password });
-      navigate('/protected');
+      navigate('/dashboard');
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
